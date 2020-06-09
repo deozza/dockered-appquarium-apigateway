@@ -1,5 +1,6 @@
 {
     "type": "project",
+    "description": "A dockered container for the api gateway of appquarium",
     "license": "proprietary",
     "require": {
         "php": "^7.2.5",
