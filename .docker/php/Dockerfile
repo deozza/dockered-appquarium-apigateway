@@ -14,14 +14,15 @@ RUN pecl install xdebug \
 
 ADD .docker/php/xdebug.ini /etc/php/conf.d/
 
+COPY .docker/php/ini/conf.d/memory_limit.ini /usr/local/etc/php/conf.d
+
+COPY apiGateway/ /var/www/apiGateway
+
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls \
     && mv composer.phar /usr/local/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN mkdir -p /var/www/.composer && chown -R www-data /var/www/.composer
-
-COPY .docker/php/ini/conf.d /usr/local/etc/php
-COPY apiGateway/ /var/www/apiGateway
 
 RUN PATH=$PATH:/var/www/apiGateway/vendor/bin:bin
 
