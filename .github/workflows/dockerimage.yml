@@ -16,10 +16,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker containers
       run: docker-compose up -d
-    - name: Check composer
-      run: docker-compose exec -T -u root appquarium-php-apigateway composer validate
-    - name: Install composer dependencies
-      run: docker-compose exec -T -u root appquarium-php-apigateway composer install --prefer-dist --no-scripts --no-progress -q -o
     - name: Launch tests
       run: docker-compose exec -T -u root appquarium-php-apigateway bin/phpunit
     - name: Login to Docker
