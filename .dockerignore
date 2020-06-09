@@ -1,0 +1,15 @@
+*
+!.docker/
+!apiGateway/bin
+!apiGateway/config
+!apiGateway/public
+!apiGateway/src
+!apiGateway/tests
+!apiGateway/.env
+!apiGateway/.env.test
+!apiGateway/composer.json
+!apiGateway/composer.lock
+!apiGateway/phpunit.xml.dist
+!apiGateway/symfony.lock
+
+

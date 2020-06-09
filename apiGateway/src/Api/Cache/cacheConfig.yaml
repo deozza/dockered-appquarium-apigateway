@@ -1,0 +1,12 @@
+GET:
+  user.current:
+    expiresAfter: 10
+    mustBeOwner: true
+  user.specific:
+    expiresAfter: 10
+    mustHaveRoles:
+      - ROLE_ADMIN
+  user.list:
+    expiresAfter: 10
+    mustHaveRoles:
+      - ROLE_ADMIN
