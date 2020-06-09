@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+
+  appquarium-php-apigateway:
+    image: deozza/appquarium-apigateway
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    restart: on-failure
+    user: '1000:1000'
