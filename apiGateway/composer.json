@@ -1,4 +1,5 @@
 {
+    "name": "deozza/dockered-appquarium-apigateway",
     "type": "project",
     "description": "A dockered container for the api gateway of appquarium",
     "license": "proprietary",
