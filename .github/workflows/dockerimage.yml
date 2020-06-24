@@ -4,21 +4,19 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'config/**'
-      - 'src/**'
-      - 'tests/**'
+      - 'apiGateway/config/**'
+      - 'apiGateway/src/**'
+      - 'apiGateway/tests/**'
   pull_request:
     branches: [ master ]
     paths:
-      - 'config/**'
-      - 'src/**'
-      - 'tests/**'
+      - 'apiGateway/config/**'
+      - 'apiGateway/src/**'
+      - 'apiGateway/tests/**'
 
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
