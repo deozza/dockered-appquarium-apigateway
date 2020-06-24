@@ -23,8 +23,10 @@ jobs:
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+    - name: Putting down test containers
+      run: docker-compose -f docker-compose.test.yml down
     - name: Build the Docker prod containers
-      run: docker-compose -f docker-compose.prod.yml
+      run: docker-compose -f docker-compose.prod.yml build
     - name: Tag image
       run: docker tag deozza/appquarium-apigateway deozza/appquarium-apigateway:${{ steps.vars.outputs.sha_short }}
     - name: Push to Docker tagged image
