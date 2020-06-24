@@ -6,11 +6,7 @@ services:
     build:
       context: .
       dockerfile: .docker/php/Dockerfile
-      target: base
+      target: prod
     container_name: appquarium-php-apigateway
-    volumes:
-      - ./apiGateway/:/var/www/apiGateway
     restart: on-failure
     user: '1000:1000'
-    ports:
-      - 8000:8000

@@ -75,6 +75,9 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.0"
+    },
     "firebase/php-jwt": {
         "version": "v5.2.0"
     },
@@ -248,6 +251,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.15.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.1"
     },
     "symfony/property-access": {
         "version": "v5.0.7"

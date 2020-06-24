@@ -14,8 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker containers
-      run: docker-compose up -d
+    - name: Build the Docker test containers
+      run: docker-compose -f docker-compose.test.yml up  -d --build
     - name: Launch tests
       run: docker-compose exec -T -u root appquarium-php-apigateway bin/phpunit
     - name: Login to Docker
@@ -23,6 +23,8 @@ jobs:
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+    - name: Build the Docker prod containers
+      run: docker-compose -f docker-compose.prod.yml
     - name: Tag image
       run: docker tag deozza/appquarium-apigateway deozza/appquarium-apigateway:${{ steps.vars.outputs.sha_short }}
     - name: Push to Docker tagged image

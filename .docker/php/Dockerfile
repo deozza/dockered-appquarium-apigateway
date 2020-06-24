@@ -1,7 +1,7 @@
-FROM php:7.3-fpm
+FROM php:7.3-fpm as base
 
 RUN apt-get update \
-    && apt-get install -y libzip-dev zip libcurl4-openssl-dev pkg-config libssl-dev gnupg nginx
+    && apt-get install -y libzip-dev zip libcurl4-openssl-dev pkg-config libssl-dev gnupg
 
 RUN set -xe \
     && docker-php-ext-install zip
@@ -9,27 +9,39 @@ RUN set -xe \
 RUN pecl install apcu \
     && docker-php-ext-enable apcu
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
-
-ADD .docker/php/xdebug.ini /etc/php/conf.d/
-
 COPY .docker/php/ini/conf.d/memory_limit.ini /usr/local/etc/php/conf.d
-
-COPY apiGateway/ /var/www/apiGateway
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls \
     && mv composer.phar /usr/local/bin/composer
-
 ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN mkdir -p /var/www/.composer && chown -R www-data /var/www/.composer
-
+RUN mkdir -p /var/www/.composer && chown -R www-data:www-data /var/www/.composer
 RUN PATH=$PATH:/var/www/apiGateway/vendor/bin:bin
 
 WORKDIR /var/www/apiGateway
 
-RUN composer install
+ENV APP_ENV=dev
 
 EXPOSE 9000
 
 CMD ["php-fpm"]
+
+FROM base as test
+
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+COPY .docker/php/xdebug.ini /etc/php/conf.d/
+
+COPY apiGateway/ /var/www/apiGateway
+
+ENV APP_ENV=test
+
+RUN composer install
+
+FROM base as prod
+
+COPY apiGateway/ /var/www/apiGateway
+
+ENV APP_ENV=prod
+
+RUN composer install --no-dev --optimize-autoloader
