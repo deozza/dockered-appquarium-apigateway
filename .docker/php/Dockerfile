@@ -34,8 +34,6 @@ COPY .docker/php/xdebug.ini /etc/php/conf.d/
 
 COPY apiGateway/ /var/www/apiGateway
 
-ENV APP_ENV=test
-
 RUN composer install
 
 FROM base as prod

@@ -7,13 +7,18 @@ on:
       - 'apiGateway/config/**'
       - 'apiGateway/src/**'
       - 'apiGateway/tests/**'
+      - '.docker/**'
+      - '.github/**'
+      - 'docker-compose.**'
   pull_request:
     branches: [ master ]
     paths:
       - 'apiGateway/config/**'
       - 'apiGateway/src/**'
       - 'apiGateway/tests/**'
-
+      - '.docker/**'
+      - '.github/**'
+      - 'docker-compose.**'
 
 jobs:
   build:
