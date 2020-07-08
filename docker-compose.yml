@@ -5,7 +5,7 @@ services:
     image: deozza/appquarium-apigateway
     build:
       context: .
-      dockerfile: .docker/php/Dockerfile
+      dockerfile: .docker/php/Dockerfile.dev
       target: base
     container_name: appquarium-php-apigateway
     volumes:

@@ -5,7 +5,7 @@ services:
     image: deozza/appquarium-apigateway
     build:
       context: .
-      dockerfile: .docker/php/Dockerfile
+      dockerfile: .docker/php/Dockerfile.test
       target: test
     container_name: appquarium-php-apigateway
     restart: on-failure
