@@ -6,7 +6,6 @@ services:
     build:
       context: .
       dockerfile: .docker/php/Dockerfile.dev
-      target: base
     container_name: appquarium-php-apigateway
     volumes:
       - ./apiGateway/:/var/www/apiGateway
