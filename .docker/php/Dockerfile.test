@@ -10,7 +10,6 @@ RUN pecl install apcu \
     && docker-php-ext-enable apcu
 
 COPY .docker/php/ini/conf.d/memory_limit.ini /usr/local/etc/php/conf.d
-COPY .docker/php/ini/conf.d/mongodb.ini /usr/local/etc/php/conf.d
 COPY apiGateway/ /var/www/apiGateway
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls \
