@@ -7,9 +7,9 @@ on:
       - develop
       - feature
     paths:
-      - 'apiUser/config/**'
-      - 'apiUser/src/**'
-      - 'apiUser/tests/**'
+      - 'apiGateway/config/**'
+      - 'apiGateway/src/**'
+      - 'apiGateway/tests/**'
       - '.docker/**'
       - '.github/workflows/integration_testing.yml'
       - 'docker-compose.dev.yml'
@@ -27,12 +27,12 @@ jobs:
     - name: Build the Docker test containers
       run: docker-compose -f docker-compose.test.yml up -d
     - name: Check composer
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apiuser composer validate
+      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway composer validate
     - name: Install composer dependencies
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apiuser composer install --prefer-dist --no-scripts --no-progress -q -o
+      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway composer install --prefer-dist --no-scripts --no-progress -q -o
     - name: Create database
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apiuser bin/console d:m:s:c --env=test
+      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway bin/console d:m:s:c --env=test
     - name: Load fixtures
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apiuser bin/console t:f:l --env=test
+      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway bin/console t:f:l --env=test
     - name: Launch tests
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apiuser bin/phpunit
+      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway bin/phpunit
