@@ -30,9 +30,5 @@ jobs:
       run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway composer validate
     - name: Install composer dependencies
       run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway composer install --prefer-dist --no-scripts --no-progress -q -o
-    - name: Create database
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway bin/console d:m:s:c --env=test
-    - name: Load fixtures
-      run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway bin/console t:f:l --env=test
     - name: Launch tests
       run: docker-compose -f docker-compose.test.yml exec -T -u root appquarium-php-apigateway bin/phpunit
