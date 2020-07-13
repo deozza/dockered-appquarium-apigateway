@@ -47,7 +47,3 @@ jobs:
       run: docker tag deozza/appquarium-apigateway deozza/appquarium-apigateway:${{ steps.vars.outputs.sha_short }}
     - name: Push to Docker tagged image
       run: docker push deozza/appquarium-apigateway:${{ steps.vars.outputs.sha_short }}
-    - name: latest image
-      run: docker tag deozza/appquarium-apigateway deozza/appquarium-apigateway:latest
-    - name: Push to Docker
-      run: docker push deozza/appquarium-apigateway:latest
