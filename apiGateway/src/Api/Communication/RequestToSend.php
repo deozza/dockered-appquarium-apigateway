@@ -57,7 +57,7 @@ class RequestToSend
 		return $this->body;
 	}
 
-	public function setBody(array $body): self
+	public function setBody(?array $body): self
 	{
 		$this->body = $body;
 		return $this;
