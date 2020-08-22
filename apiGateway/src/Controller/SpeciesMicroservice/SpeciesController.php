@@ -35,6 +35,7 @@ class SpeciesController extends AbstractController
 		];
 
 		$requestToSend = new RequestToSend($url, $request->getMethod());
+		$requestToSend->setQueryParams($request->query->all());
 		$requestToSend->setHeaders($headers);
 
 		$responseFromApi = $this->requestMaker->sendRequest($requestToSend, $this->getUser());
@@ -68,7 +69,55 @@ class SpeciesController extends AbstractController
 	{
 		$url = $this->baseUrl.'api/species';
 		$headers = [
-			'Authorization'=>$request->headers->get('Authorization')
+			'Authorization'=>$request->headers->get('Authorization'),
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
+		];
+
+		$requestToSend = new RequestToSend($url, $request->getMethod());
+		$requestToSend->setBody(json_decode($request->getContent(), true));
+		$requestToSend->setHeaders($headers);
+
+		$responseFromApi = $this->requestMaker->sendRequest($requestToSend, $this->getUser());
+
+		return $responseFromApi;
+	}
+
+	/**
+	 * @Route("/{encodedLink}", name="patch_species_component", methods={"PATCH"})
+	 * @IsGranted("SPECIES_POST", subject="request")
+	 */
+	public function patchSpeciesComponentIntoSpeciesMicroservice(Request $request, string $encodedLink): Response
+	{
+		$decodedLink = base64_decode($encodedLink);
+
+		$url = $this->baseUrl.substr($decodedLink, 1);
+		$headers = [
+			'Authorization'=>$request->headers->get('Authorization'),
+			'Content-Type' => 'application/json',
+			'Accept'      => 'application/json'
+		];
+
+		$requestToSend = new RequestToSend($url, $request->getMethod());
+		$requestToSend->setBody(json_decode($request->getContent(), true));
+		$requestToSend->setHeaders($headers);
+
+		$responseFromApi = $this->requestMaker->sendRequest($requestToSend, $this->getUser());
+
+		return $responseFromApi;
+	}
+
+	/**
+	 * @Route("/{component}", name="post_species_component", methods={"POST"})
+	 * @IsGranted("SPECIES_POST", subject="request")
+	 */
+	public function postSpeciesComponentIntoSpeciesMicroservice(Request $request, string $component): Response
+	{
+		$url = $this->baseUrl.'api/'.$component;
+		$headers = [
+			'Authorization'=>$request->headers->get('Authorization'),
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
 		];
 
 		$requestToSend = new RequestToSend($url, $request->getMethod());

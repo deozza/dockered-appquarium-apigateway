@@ -26,8 +26,12 @@ class SecurityController extends AbstractController
 	public function loginFromUserMicroservice(Request $request): Response
 	{
 		$url = $this->baseUrl.'api/token';
-
+		$headers = [
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
+		];
 		$requestToSend = new RequestToSend($url, $request->getMethod());
+		$requestToSend->setHeaders($headers);
 		$requestToSend->setBody(json_decode($request->getContent(), true));
 
 		$responseFromApi = $this->requestMaker->sendRequest($requestToSend, $this->getUser());

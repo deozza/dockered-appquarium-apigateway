@@ -93,8 +93,13 @@ class UserController extends AbstractController
 	public function postUserIntoMicroservice(Request $request): Response
 	{
 		$url = $this->baseUrl.'api/users';
+		$headers = [
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
+		];
 
 		$requestToSend = new RequestToSend($url, $request->getMethod());
+		$requestToSend->setHeaders($headers);
 		$requestToSend->setBody(json_decode($request->getContent(), true));
 
 		$responseFromApi = $this->requestMaker->sendRequest($requestToSend, $this->getUser());
@@ -110,7 +115,9 @@ class UserController extends AbstractController
 	{
 		$url = $this->baseUrl.'api/users/current';
 		$headers = [
-			'Authorization'=>$request->headers->get('Authorization')
+			'Authorization'=> $request->headers->get('Authorization'),
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
 		];
 		$requestToSend = new RequestToSend($url, $request->getMethod());
 		$requestToSend->setHeaders($headers);
@@ -129,7 +136,10 @@ class UserController extends AbstractController
 	{
 		$url = $this->baseUrl.'api/users/current/password';
 		$headers = [
-			'Authorization'=>$request->headers->get('Authorization')
+			'Authorization'=>$request->headers->get('Authorization'),
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
+
 		];
 		$requestToSend = new RequestToSend($url, $request->getMethod());
 		$requestToSend->setHeaders($headers);
@@ -146,7 +156,12 @@ class UserController extends AbstractController
 	public function patchUserActivateIntoMicroservice(Request $request, string $token): Response
 	{
 		$url = $this->baseUrl.'api/users/activate/'.$token;
+		$headers = [
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
+		];
 		$requestToSend = new RequestToSend($url, $request->getMethod());
+		$requestToSend->setHeaders($headers);
 
 		$responseFromApi = $this->requestMaker->sendRequest($requestToSend, $this->getUser());
 
@@ -161,7 +176,9 @@ class UserController extends AbstractController
 	{
 		$url = $this->baseUrl.'api/users/'.$id;
 		$headers = [
-			'Authorization'=>$request->headers->get('Authorization')
+			'Authorization'=>$request->headers->get('Authorization'),
+			'Content-Type' => 'application/ld+json',
+			'Accept'      => 'application/ld+json'
 		];
 		$requestToSend = new RequestToSend($url, $request->getMethod());
 		$requestToSend->setHeaders($headers);
